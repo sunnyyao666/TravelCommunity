@@ -12,7 +12,6 @@ import pm.travelcommunity.repository.UserRepository;
 /**
  * @author: YHT
  **/
-
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthController {
@@ -43,14 +42,14 @@ public class AuthController {
     }
 
     @PostMapping("/user/register")
-    public ResponseEntity<?> userRegister(@RequestBody UserAuthRequest request) throws DuplicateUsernameException{
+    public ResponseEntity<?> userRegister(@RequestBody UserAuthRequest request) throws DuplicateUsernameException {
         String username = request.getUsername();
         User user = userRepository.findByUsername(username);
         if (user != null) {
             throw new DuplicateUsernameException(username);
         }
 
-        user = new User(username, request.getPassword());
+        user = new User(username, request.getPassword(), request.getEmail(), request.getPhone());
         userRepository.save(user);
 
         return ResponseEntity.ok(user);
