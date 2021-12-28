@@ -3,6 +3,7 @@ package pm.travelcommunity.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import pm.travelcommunity.domain.travel.Travel;
+import pm.travelcommunity.domain.travel.TravelComment;
 import pm.travelcommunity.domain.travel.TravelLike;
 import pm.travelcommunity.domain.travel.TravelStar;
 
@@ -21,8 +22,12 @@ public class User extends BaseEntity {
     private String email;
     private String phone;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "author")
     private Set<Travel> travels = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
+    private Set<TravelComment> travelComments = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "user")
     @JsonIgnore
@@ -81,12 +86,24 @@ public class User extends BaseEntity {
         this.travels = travels;
     }
 
+    public Set<TravelComment> getTravelComments() {
+        return travelComments;
+    }
+
+    public void setTravelComments(Set<TravelComment> travelComments) {
+        this.travelComments = travelComments;
+    }
+
     public Set<TravelLike> getTravelLikes() {
         return travelLikes;
     }
 
     public void setTravelLikes(Set<TravelLike> travelLikes) {
         this.travelLikes = travelLikes;
+    }
+
+    public void removeTravelLike(TravelLike travelLike) {
+        this.travelLikes.remove(travelLike);
     }
 
     public Set<TravelStar> getTravelStars() {
@@ -96,5 +113,8 @@ public class User extends BaseEntity {
     public void setTravelStars(Set<TravelStar> travelStars) {
         this.travelStars = travelStars;
     }
-}
 
+    public void removeTravelStar(TravelStar travelStar) {
+        this.travelStars.remove(travelStar);
+    }
+}

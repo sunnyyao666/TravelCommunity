@@ -2,6 +2,7 @@ package pm.travelcommunity.domain.travel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import pm.travelcommunity.domain.BaseEntity;
+import pm.travelcommunity.domain.User;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -13,6 +14,9 @@ import javax.persistence.ManyToOne;
 @Entity
 public class TravelComment extends BaseEntity {
     @ManyToOne
+    private User user;
+
+    @ManyToOne
     @JsonIgnore
     private Travel travel;
 
@@ -21,9 +25,18 @@ public class TravelComment extends BaseEntity {
     public TravelComment() {
     }
 
-    public TravelComment(Travel travel, String content) {
+    public TravelComment(User user, Travel travel, String content) {
+        this.user = user;
         this.travel = travel;
         this.content = content;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Travel getTravel() {

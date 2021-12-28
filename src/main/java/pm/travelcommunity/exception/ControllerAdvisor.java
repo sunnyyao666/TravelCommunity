@@ -27,4 +27,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         response.put("message", ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ErrorIDException.class)
+    ResponseEntity<?> handleErrorIDException(ErrorIDException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

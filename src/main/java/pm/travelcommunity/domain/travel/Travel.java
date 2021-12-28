@@ -15,7 +15,8 @@ import java.util.Set;
 public class Travel extends BaseEntity {
     @ManyToOne
     @JsonIgnore
-    private User user;
+    private User author;
+    private String authorName;
 
     private String content;
     private int likeNumber;
@@ -40,17 +41,27 @@ public class Travel extends BaseEntity {
     public Travel() {
     }
 
-    public Travel(User user, String content) {
-        this.user = user;
+    public Travel(User author, String content) {
+        this.author = author;
+        this.authorName = author.getUsername();
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User author) {
+        this.author = author;
+        this.authorName = author.getUsername();
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
     public String getContent() {
@@ -77,12 +88,20 @@ public class Travel extends BaseEntity {
         this.travelComments = travelComments;
     }
 
+    public void addTravelComment(TravelComment travelComment) {
+        this.travelComments.add(travelComment);
+    }
+
     public Set<TravelLike> getTravelLikes() {
         return travelLikes;
     }
 
     public void setTravelLikes(Set<TravelLike> travelLikes) {
         this.travelLikes = travelLikes;
+    }
+
+    public void removeTravelLike(TravelLike travelLike) {
+        this.travelLikes.remove(travelLike);
     }
 
     public boolean isLiked() {
@@ -99,6 +118,10 @@ public class Travel extends BaseEntity {
 
     public void setTravelStars(Set<TravelStar> travelStars) {
         this.travelStars = travelStars;
+    }
+
+    public void removeTravelStar(TravelStar travelStar) {
+        this.travelStars.remove(travelStar);
     }
 
     public boolean isStared() {

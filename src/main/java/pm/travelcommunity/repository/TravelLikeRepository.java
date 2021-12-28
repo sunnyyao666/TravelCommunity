@@ -6,5 +6,5 @@ import pm.travelcommunity.domain.travel.TravelLike;
 
 @Repository
 public interface TravelLikeRepository extends CrudRepository<TravelLike, Integer> {
-    TravelLike findByUser_UsernameAndTravel_Id(String username, int id);
+    TravelLike findByUser_IdAndTravel_Id(int userID, int travelID);
 }
