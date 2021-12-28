@@ -64,6 +64,7 @@ public class TravelController {
             travelLikeRepository.delete(travelLike);
             update = -1;
             travel.setLiked(false);
+            userRepository.save(user);
         } else {
             TravelLike travelLike = new TravelLike(user, travel);
             travelLikeRepository.save(travelLike);
@@ -79,8 +80,13 @@ public class TravelController {
         User user = findUserByUsername(request.getUsername());
         Travel travel = findTravelByTravelID(user.getId(), request.getTravelID());
         if (travel.isStared()) {
-            travelStarRepository.deleteByUser_IdAndTravel_Id(user.getId(), travel.getId());
+            TravelStar travelStar = travelStarRepository.findByUser_IdAndTravel_Id(user.getId(), travel.getId());
+            user.removeTravelStar(travelStar);
+            travel.removeTravelStar(travelStar);
+            travelStarRepository.delete(travelStar);
             travel.setStared(false);
+            userRepository.save(user);
+            travelRepository.save(travel);
         } else {
             TravelStar travelStar = new TravelStar(user, travel);
             travelStarRepository.save(travelStar);
