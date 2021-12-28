@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
- * @author: YHT
+ * @author YHT
  **/
 @SpringBootApplication
 @EnableJpaAuditing

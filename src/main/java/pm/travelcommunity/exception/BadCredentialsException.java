@@ -1,7 +1,7 @@
 package pm.travelcommunity.exception;
 
 /**
- * @author: YHT
+ * @author YHT
  **/
 public class BadCredentialsException extends RuntimeException {
     public BadCredentialsException() {

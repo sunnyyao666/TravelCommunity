@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * @author: YHT
+ * @author YHT
  **/
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

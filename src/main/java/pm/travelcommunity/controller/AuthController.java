@@ -10,7 +10,7 @@ import pm.travelcommunity.exception.DuplicateUsernameException;
 import pm.travelcommunity.repository.UserRepository;
 
 /**
- * @author: YHT
+ * @author YHT
  **/
 @RestController
 @RequestMapping(value = "/auth")

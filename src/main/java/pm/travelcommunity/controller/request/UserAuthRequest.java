@@ -1,7 +1,7 @@
 package pm.travelcommunity.controller.request;
 
 /**
- * @author: YHT
+ * @author YHT
  **/
 public class UserAuthRequest {
     private String username;

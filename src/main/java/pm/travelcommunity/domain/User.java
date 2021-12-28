@@ -1,11 +1,16 @@
 package pm.travelcommunity.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import pm.travelcommunity.domain.travel.Travel;
+import pm.travelcommunity.domain.travel.TravelLike;
+import pm.travelcommunity.domain.travel.TravelStar;
+
 import javax.persistence.*;
 import java.util.*;
 
 /**
- * @author: YHT
+ * @author YHT
  **/
 @Entity
 public class User extends BaseEntity {
@@ -16,6 +21,16 @@ public class User extends BaseEntity {
     private String email;
     private String phone;
 
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Travel> travels = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
+    private Set<TravelLike> travelLikes = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<TravelStar> travelStars = new HashSet<>();
+
     public User() {
     }
 
@@ -23,7 +38,7 @@ public class User extends BaseEntity {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.password = phone;
+        this.phone = phone;
     }
 
     public String getUsername() {
@@ -56,6 +71,30 @@ public class User extends BaseEntity {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Set<Travel> getTravels() {
+        return travels;
+    }
+
+    public void setTravels(Set<Travel> travels) {
+        this.travels = travels;
+    }
+
+    public Set<TravelLike> getTravelLikes() {
+        return travelLikes;
+    }
+
+    public void setTravelLikes(Set<TravelLike> travelLikes) {
+        this.travelLikes = travelLikes;
+    }
+
+    public Set<TravelStar> getTravelStars() {
+        return travelStars;
+    }
+
+    public void setTravelStars(Set<TravelStar> travelStars) {
+        this.travelStars = travelStars;
     }
 }
 
