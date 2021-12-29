@@ -2,6 +2,7 @@ package pm.travelcommunity.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pm.travelcommunity.domain.scene.SceneStar;
 import pm.travelcommunity.domain.travel.Travel;
 import pm.travelcommunity.domain.travel.TravelComment;
 import pm.travelcommunity.domain.travel.TravelLike;
@@ -35,6 +36,9 @@ public class User extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "user")
     private Set<TravelStar> travelStars = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<SceneStar> sceneStars = new HashSet<>();
 
     public User() {
     }
@@ -116,5 +120,17 @@ public class User extends BaseEntity {
 
     public void removeTravelStar(TravelStar travelStar) {
         this.travelStars.remove(travelStar);
+    }
+
+    public Set<SceneStar> getSceneStars() {
+        return sceneStars;
+    }
+
+    public void setSceneStars(Set<SceneStar> sceneStars) {
+        this.sceneStars = sceneStars;
+    }
+
+    public void removeSceneStar(SceneStar sceneStar) {
+        this.sceneStars.remove(sceneStar);
     }
 }

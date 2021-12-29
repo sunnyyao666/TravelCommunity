@@ -16,8 +16,8 @@ public class Travel extends BaseEntity {
     @ManyToOne
     @JsonIgnore
     private User author;
-    private String authorName;
 
+    private String authorName;
     private String content;
     private int likeNumber;
 
