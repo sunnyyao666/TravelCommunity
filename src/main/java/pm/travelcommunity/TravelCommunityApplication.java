@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import pm.travelcommunity.domain.User;
-import pm.travelcommunity.domain.travel.Travel;
-import pm.travelcommunity.repository.TravelRepository;
+import pm.travelcommunity.repository.travel.TravelRepository;
 import pm.travelcommunity.repository.UserRepository;
 
 /**

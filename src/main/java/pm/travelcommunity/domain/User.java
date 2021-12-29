@@ -2,6 +2,9 @@ package pm.travelcommunity.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pm.travelcommunity.domain.scene.Contribution;
+import pm.travelcommunity.domain.scene.ContributionComment;
+import pm.travelcommunity.domain.scene.SceneComment;
 import pm.travelcommunity.domain.scene.SceneStar;
 import pm.travelcommunity.domain.travel.Travel;
 import pm.travelcommunity.domain.travel.TravelComment;
@@ -39,6 +42,15 @@ public class User extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "user")
     private Set<SceneStar> sceneStars = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "author")
+    private Set<Contribution> contributions = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "author")
+    private Set<SceneComment> sceneComments = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "author")
+    private Set<ContributionComment> contributionComments = new HashSet<>();
 
     public User() {
     }
@@ -132,5 +144,29 @@ public class User extends BaseEntity {
 
     public void removeSceneStar(SceneStar sceneStar) {
         this.sceneStars.remove(sceneStar);
+    }
+
+    public Set<Contribution> getContributions() {
+        return contributions;
+    }
+
+    public void setContributions(Set<Contribution> contributions) {
+        this.contributions = contributions;
+    }
+
+    public Set<SceneComment> getSceneComments() {
+        return sceneComments;
+    }
+
+    public void setSceneComments(Set<SceneComment> sceneComments) {
+        this.sceneComments = sceneComments;
+    }
+
+    public Set<ContributionComment> getContributionComments() {
+        return contributionComments;
+    }
+
+    public void setContributionComments(Set<ContributionComment> contributionComments) {
+        this.contributionComments = contributionComments;
     }
 }

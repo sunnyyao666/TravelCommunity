@@ -1,4 +1,4 @@
-package pm.travelcommunity.repository;
+package pm.travelcommunity.repository.scene;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

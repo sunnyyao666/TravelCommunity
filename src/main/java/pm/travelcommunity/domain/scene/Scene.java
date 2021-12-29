@@ -2,7 +2,6 @@ package pm.travelcommunity.domain.scene;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import pm.travelcommunity.domain.BaseEntity;
-import pm.travelcommunity.domain.travel.TravelStar;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -22,6 +21,12 @@ public class Scene extends BaseEntity {
 
     @Transient
     private boolean isStared;
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "scene")
+    private Set<Contribution> contributions = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "scene")
+    private Set<SceneComment> sceneComments = new HashSet<>();
 
     public Scene() {
     }
@@ -65,6 +70,26 @@ public class Scene extends BaseEntity {
 
     public void setStared(boolean stared) {
         isStared = stared;
+    }
+
+    public Set<Contribution> getContributions() {
+        return contributions;
+    }
+
+    public void setContributions(Set<Contribution> contributions) {
+        this.contributions = contributions;
+    }
+
+    public Set<SceneComment> getSceneComments() {
+        return sceneComments;
+    }
+
+    public void setSceneComments(Set<SceneComment> sceneComments) {
+        this.sceneComments = sceneComments;
+    }
+
+    public void addSceneComment(SceneComment sceneComment) {
+        this.sceneComments.add(sceneComment);
     }
 }
 

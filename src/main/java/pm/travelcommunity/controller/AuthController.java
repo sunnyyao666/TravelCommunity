@@ -5,8 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pm.travelcommunity.controller.request.UserAuthRequest;
 import pm.travelcommunity.domain.User;
-import pm.travelcommunity.exception.BadCredentialsException;
-import pm.travelcommunity.exception.DuplicateUsernameException;
+import pm.travelcommunity.exception.*;
 import pm.travelcommunity.repository.UserRepository;
 
 /**
