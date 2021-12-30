@@ -5,10 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pm.travelcommunity.controller.request.TravelRequest;
 import pm.travelcommunity.domain.*;
+import pm.travelcommunity.domain.scene.Scene;
+import pm.travelcommunity.domain.scene.SceneStar;
 import pm.travelcommunity.domain.travel.*;
 import pm.travelcommunity.exception.*;
 import pm.travelcommunity.repository.*;
 import pm.travelcommunity.repository.travel.*;
+
+import java.util.Set;
 
 /**
  * @author YHT
@@ -90,6 +94,32 @@ public class TravelController {
             travel.setStared(true);
         }
         return ResponseEntity.ok(travel);
+    }
+
+    @PostMapping(value = "/getAll")
+    public ResponseEntity<?> getAllTravels(@RequestBody TravelRequest request) throws BadCredentialsException {
+        boolean f = false;
+        int userID = 0;
+        int travelID = request.getTravelID();
+        if (request.getUsername() != null && !"".equals(request.getUsername())) {
+            f = true;
+            User user = findUserByUsername(request.getUsername());
+            userID = user.getId();
+        }
+        Set<Travel> result = travelRepository.findAllByOrderByCreateTimeDesc();
+        if (f) {
+            for (Travel travel : result) {
+                TravelStar travelStar = travelStarRepository.findByUser_IdAndTravel_Id(userID, travelID);
+                if (travelStar != null) {
+                    travel.setStared(true);
+                }
+                TravelLike travelLike = travelLikeRepository.findByUser_IdAndTravel_Id(userID, travelID);
+                if (travelLike != null) {
+                    travel.setLiked(true);
+                }
+            }
+        }
+        return ResponseEntity.ok(result);
     }
 
     private User findUserByUsername(String username) throws BadCredentialsException {
