@@ -14,7 +14,10 @@ import javax.persistence.ManyToOne;
 @Entity
 public class TravelComment extends BaseEntity {
     @ManyToOne
-    private User user;
+    @JsonIgnore
+    private User author;
+
+    private String authorName;
 
     @ManyToOne
     @JsonIgnore
@@ -25,18 +28,28 @@ public class TravelComment extends BaseEntity {
     public TravelComment() {
     }
 
-    public TravelComment(User user, Travel travel, String content) {
-        this.user = user;
+    public TravelComment(User author, Travel travel, String content) {
+        this.author = author;
+        this.authorName = author.getUsername();
         this.travel = travel;
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User author) {
+        this.author = author;
+        this.authorName = author.getUsername();
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
     public Travel getTravel() {

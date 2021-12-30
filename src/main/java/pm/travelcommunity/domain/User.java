@@ -29,7 +29,7 @@ public class User extends BaseEntity {
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "author")
     private Set<Travel> travels = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "author")
     @JsonIgnore
     private Set<TravelComment> travelComments = new HashSet<>();
 

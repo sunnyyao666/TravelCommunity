@@ -53,5 +53,15 @@ public class AuthController {
 
         return ResponseEntity.ok(user);
     }
+
+    @PostMapping("/user/get")
+    public ResponseEntity<?> getUser(@RequestBody UserAuthRequest request) throws BadCredentialsException {
+        String username = request.getUsername();
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new BadCredentialsException();
+        }
+        return ResponseEntity.ok(user);
+    }
 }
 
