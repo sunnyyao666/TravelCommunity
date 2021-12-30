@@ -39,7 +39,6 @@ public class SceneController {
     public ResponseEntity<?> getAllScenes(@RequestBody SceneRequest request) throws BadCredentialsException {
         boolean f = false;
         int userID = 0;
-        int sceneID = request.getSceneID();
         if (request.getUsername() != null && !"".equals(request.getUsername())) {
             f = true;
             User user = findUserByUsername(request.getUsername());
@@ -48,7 +47,7 @@ public class SceneController {
         Set<Scene> result = sceneRepository.findAllByOrderByCreateTimeDesc();
         if (f) {
             for (Scene scene : result) {
-                SceneStar sceneStar = sceneStarRepository.findByUser_IdAndScene_Id(userID, sceneID);
+                SceneStar sceneStar = sceneStarRepository.findByUser_IdAndScene_Id(userID, scene.getId());
                 if (sceneStar != null) {
                     scene.setStared(true);
                 }

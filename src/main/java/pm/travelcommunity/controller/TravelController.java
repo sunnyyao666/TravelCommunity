@@ -100,7 +100,6 @@ public class TravelController {
     public ResponseEntity<?> getAllTravels(@RequestBody TravelRequest request) throws BadCredentialsException {
         boolean f = false;
         int userID = 0;
-        int travelID = request.getTravelID();
         if (request.getUsername() != null && !"".equals(request.getUsername())) {
             f = true;
             User user = findUserByUsername(request.getUsername());
@@ -109,11 +108,11 @@ public class TravelController {
         Set<Travel> result = travelRepository.findAllByOrderByCreateTimeDesc();
         if (f) {
             for (Travel travel : result) {
-                TravelStar travelStar = travelStarRepository.findByUser_IdAndTravel_Id(userID, travelID);
+                TravelStar travelStar = travelStarRepository.findByUser_IdAndTravel_Id(userID, travel.getId());
                 if (travelStar != null) {
                     travel.setStared(true);
                 }
-                TravelLike travelLike = travelLikeRepository.findByUser_IdAndTravel_Id(userID, travelID);
+                TravelLike travelLike = travelLikeRepository.findByUser_IdAndTravel_Id(userID, travel.getId());
                 if (travelLike != null) {
                     travel.setLiked(true);
                 }
